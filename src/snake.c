@@ -39,7 +39,7 @@ void snake_update(struct snake *snake) {
         snake->body[0].x = 19;
     }
     if (snake->body[0].y < 0) {
-        snake->body[0].x = 19;
+        snake->body[0].y = 19;
     }
 }
 
