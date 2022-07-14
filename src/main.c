@@ -6,9 +6,16 @@ struct snake snake;
 uint32_t frame_count = 0;
 uint8_t prev_state = 0;
 struct point fruit;
-const uint8_t fruit_sprite[] = {
+const uint8_t peach[] = {
     0x00,0xa0,0x02,0x00,0x0e,0xf0,0x36,0x5c,0xd6,0x57,0xd5,0x57,0x35,0x5c,0x0f,0xf0
 };
+const uint8_t strawberry[16] = {
+    0x00,0x10,0x0a,0x10,0x04,0x88,0x16,0x82,0x35,0x58,0x15,0x54,0x1d,0x50,0x05,0x40
+};
+const uint8_t watermelon[16] = {
+    0x00,0x00,0x00,0x00,0x00,0x2b,0x02,0xa7,0xea,0x9b,0xe6,0xab,0x39,0x9c,0x0f,0xf0
+};
+const uint8_t* fruits[] = { peach, strawberry, watermelon };
 
 const uint8_t smiley[] = {
     0b11000011,
@@ -77,13 +84,13 @@ void update () {
         if (snake.body[0].x == fruit.x && snake.body[0].y == fruit.y) {
             struct point p = snake.body[snake.length-1];
             snake_push(&snake,p);
-            fruit.x = rand()%20;
-            fruit.y = rand()%20;
+            fruit.x = rand() % 20;
+            fruit.y = rand() % 20;
         }
     }
 
     snake_draw(&snake);
 
     *DRAW_COLORS = 0x4320;
-    blit(fruit_sprite,fruit.x * 8, fruit.y * 8, 8, 8, BLIT_2BPP);
+    blit(fruits[snake.length % 3],fruit.x * 8, fruit.y * 8, 8, 8, BLIT_2BPP);
 }
